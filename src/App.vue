@@ -1,9 +1,21 @@
 <template>
-  <div id="nav">
-
-  </div>
+	<Navbar></Navbar>
   <router-view/>
 </template>
+
+<script>
+	// import {mapState} from 'vuex'
+	import Navbar from '@/components/Navbar.vue'
+	
+	export default {
+
+		components : {
+			Navbar
+		}
+	}
+	
+</script>
+
 
 <style>
 /*  根实例中的css样式，是全局的css样式，相当于以前的global.css  */
@@ -150,6 +162,7 @@ body{ margin: 0rem; }
 .border-red{ border: 1px solid #e33; }
 .border-blue{ border: 1px solid #99c; }
 .border-bottom{ border-bottom: 1px solid #eee; }
+.border-right-dark{border-right: 1px solid #ccc;}
 
 .box-shadow{ box-shadow: 0rem 0rem 0.5rem #ccc; }
 .box-shadow-hover-red:hover{ box-shadow: 0rem 0rem 0.5rem #e33; }
@@ -214,6 +227,7 @@ body{ margin: 0rem; }
 .bg-white{ background-color: #fff; }
 .bg-white-opacity{ background-color: rgba(255,255,255,0.4); }
 .bg-red-opacity{ background-color: rgba(225,51,51,0.4); }
+.bg-gray{background-color: #ddd;}
 
 /*  字体颜色  */
 .text-dark{ color: #333; }
@@ -223,6 +237,8 @@ body{ margin: 0rem; }
 .text-white{ color: #fff; }
 .text-red{ color: #e33; }
 .text-blue{ color: #99c; }
+
+.text-hover-red:hover{color: #e33;}
 
 /*  字体尺寸  */
 .text-sm{ font-size: 0.875rem; }
@@ -246,4 +262,7 @@ body{ margin: 0rem; }
 
 /*  内容溢出  */
 .overflow-hidden{ overflow: hidden; }
+
+/* 行高 */
+.line-height-12{line-height: 0.75rem;}
 </style>
