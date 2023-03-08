@@ -1,8 +1,10 @@
 <template>
 	<Navbar></Navbar>
-	<SearchBar class="mt-3"></SearchBar>
+	<SearchBar class="my-3"></SearchBar>
+	<router-link to="/"></router-link>
+	<router-view/>
 	<Foot></Foot>
-  <router-view/>
+  
 </template>
 
 <script>
@@ -206,6 +208,7 @@ body{ margin: 0rem; }
 .w-94{ width: 94%; }
 .w-95{ width: 95%; }
 .w-100{ width: 100%; }
+.w-min-792{min-width: 792px;}
 
 .box-sizing-border{ box-sizing: border-box; }
 
