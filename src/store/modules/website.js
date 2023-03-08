@@ -1,6 +1,6 @@
 export default {
 	state: {
-		nav_index: 3
+		nav_index: 0
 	},
 	mutations: {},
 	actions: {},

@@ -1,7 +1,7 @@
 <template>
 	<div id="nav">
 		<div class="bg-gray">
-			<div class="container py-1 px-2 d-flex text-xs  ">
+			<div class="container py-1 px-3 d-flex text-xs border-box ">
 				<router-link to='/' class=" mr-auto text-decoration-none text-sm"
 					:class="{'text-red' : website.nav_index == 0, 'text-secondary' : website.nav_index != 0}"
 					@click="nav_clicked(0)">学掌门商城</router-link>

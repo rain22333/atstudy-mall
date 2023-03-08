@@ -1,16 +1,19 @@
 <template>
 	<Navbar></Navbar>
+	<SearchBar class="mt-3"></SearchBar>
   <router-view/>
 </template>
 
 <script>
 	// import {mapState} from 'vuex'
 	import Navbar from '@/components/Navbar.vue'
+	import SearchBar from '@/components/SearchBar.vue'
 	
 	export default {
 
 		components : {
-			Navbar
+			Navbar,
+			SearchBar
 		}
 	}
 	
@@ -163,6 +166,7 @@ body{ margin: 0rem; }
 .border-blue{ border: 1px solid #99c; }
 .border-bottom{ border-bottom: 1px solid #eee; }
 .border-right-dark{border-right: 1px solid #ccc;}
+.border-right-none{border-right: 0px;}
 
 .box-shadow{ box-shadow: 0rem 0rem 0.5rem #ccc; }
 .box-shadow-hover-red:hover{ box-shadow: 0rem 0rem 0.5rem #e33; }
@@ -254,6 +258,7 @@ body{ margin: 0rem; }
 /*  字体加粗  */
 .text-bold{ font-weight: 600; }
 .text-bolder{ font-weight: 900; }
+.text-lighter{font-weight: lighter;}
 
 /*  字体线型  */
 .text-decoration-none{
@@ -265,4 +270,9 @@ body{ margin: 0rem; }
 
 /* 行高 */
 .line-height-12{line-height: 0.75rem;}
+
+/* 盒子模型 */
+.border-box{
+	box-sizing: border-box;
+}
 </style>
