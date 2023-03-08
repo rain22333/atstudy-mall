@@ -1,6 +1,7 @@
 <template>
 	<Navbar></Navbar>
 	<SearchBar class="mt-3"></SearchBar>
+	<Foot></Foot>
   <router-view/>
 </template>
 
@@ -8,12 +9,14 @@
 	// import {mapState} from 'vuex'
 	import Navbar from '@/components/Navbar.vue'
 	import SearchBar from '@/components/SearchBar.vue'
+	import Foot from '@/components/Foot.vue'
 	
 	export default {
 
 		components : {
 			Navbar,
-			SearchBar
+			SearchBar,
+			Foot
 		}
 	}
 	
@@ -232,6 +235,7 @@ body{ margin: 0rem; }
 .bg-white-opacity{ background-color: rgba(255,255,255,0.4); }
 .bg-red-opacity{ background-color: rgba(225,51,51,0.4); }
 .bg-gray{background-color: #ddd;}
+.bg-dark{background-color: #444;}
 
 /*  字体颜色  */
 .text-dark{ color: #333; }
