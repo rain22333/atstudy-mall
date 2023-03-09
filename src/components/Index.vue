@@ -2,24 +2,30 @@
 	<div class="container d-flex position-relative">
 		<div class="w-17 box-shadow rounded border-box p-3 mr-2 text-xs text-secondary">
 			<div class='my-2'>
-				<div class="text-hover-red text-secondary my-1 text-sm"
+				<div class="text-secondary my-1 text-hover-red text-sm"
 					v-for="big of product.cate_list"
-					:key="'big' + big.cate_id">{{big.cate_name}}</div>
-					
-				<div style="width: 810px; height: 490px;" class="cate border-box px-3 py-2 bg-white box-shadow position-absolute">
-					<div class="d-flex">
-						
-						<div class="mr-3 text-hover-red"
-							>二级分类 ></div>
-						<div class="d-flex">
-							<div class='mx-1 text-hover-red'>三级分类</div>
-							<div class='mx-1'>三级分类</div>
-							<div class='mx-1'>三级分类</div>
-							<div class='mx-1'>三级分类</div>
-							<div class='mx-1'>三级分类</div>
+					:key=" 'big' + big.cate_id "
+					@mouseover="big_hover(big)">
+					{{big.cate_name}}
+				
+					<div style="width: 810px; height: 490px;" 
+						class="cate text-secondary border-box px-3 py-2 bg-white box-shadow position-absolute"	
+						v-show='big == product.selected_big_category'>
+						<div class="d-flex align-items-start"
+							v-for="mid of big.children"
+							:key="'mid' + mid.cate_id">
+							<!-- 二级分类 -->
+							<div class="mr-3 my-1 d-flex w-10">{{mid.cate_name}}></div>
+							<!-- 三级分类 -->
+							<div class="d-flex flex-wrap w-90">
+								<div class='mx-1 my-1 text-hover-red'
+									v-for="small of mid.children"
+									:key=" 'small' + small.cate_id ">{{small.cate_name}}</div>
+							</div>
 						</div>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 		<div class="w-66 ml-1  overflow-hidden position-relative mr-2">
@@ -59,8 +65,7 @@
 
 <script>
 	
-	import {mapState} from 'vuex'
-	import {getCategoryList} from '@/data/product.js'
+	import {mapState,mapActions,mapMutations} from 'vuex'
 	
 	export default {
 		//计算属性
@@ -68,22 +73,19 @@
 			...mapState(['website','product'])
 		},
 		methods :{
+			...mapActions({
+					'getCategoryList' : 'product/get_category_list'
+			}),
+			...mapMutations({
+				'big_hover' : 'product/big_cate_hover'
+			}),
 			// 轮播控件点击事件
 			carousel_clicked(x){
 				this.website.carousel_index = x
 			}
 		},
 		mounted() {
-			// 视图挂载完毕发送ajax请求获取到所有得分类信息
-			// getCategoryList({pid : ''}).then(response => response.json()).then(response =>{
-			// 	console.log(response)
-			// })
-			getCategoryList({pid : ""}).then(response => {
-				this.product.cate_list = response.data.data
-				this.product.selected_cate = this.product.cate_list[0]
-				console.log(this.product.selected_cate.children)
-			})
-			
+			this.getCategoryList()
 		}
 		
 	
