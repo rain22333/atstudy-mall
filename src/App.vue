@@ -186,6 +186,7 @@ body{ margin: 0rem; }
 .circle{ border-radius: 50%; }
 
 .w-0{ width: 0%; }
+.w-3{ width: 3%; }
 .w-5{ width: 5%; }
 .w-6{ width: 6%; }
 .w-10{ width: 10%; }
