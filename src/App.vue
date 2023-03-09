@@ -189,6 +189,7 @@ body{ margin: 0rem; }
 .w-5{ width: 5%; }
 .w-6{ width: 6%; }
 .w-10{ width: 10%; }
+.w-13{ width: 13%;}
 .w-15{ width: 15%; }
 .w-17{ width: 17%; }
 .w-20{ width: 20%; }

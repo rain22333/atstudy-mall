@@ -1,15 +1,30 @@
-import {getCategoryList} from '@/data/product.js'
+import {getCategoryList,getAttrList} from '@/data/product.js'
+
 
 export default {
 	namespaced : true,
 	state: {
 		cate_list : [],
-		selected_big_category : undefined		// 当前选中的一级分类
+		selected_big_category : undefined,	// 当前选中的一级分类
+		selected_category : undefined ,			// 当前选中的三级分类
+		attr_list : [],							// 筛选属性
+		selected_attr_list : []					// 选择的筛选属性，数量和筛选属性是一致的
 	},
 	mutations: {
 		// 鼠标掠过改变当前选中的一级分类
 		big_cate_hover(context,payload){
 			context.selected_big_category = payload
+		},
+		
+		// 点击选择三级分类
+		category_clicked(context,payload){
+			// 将当前仓库中的选中的三级分类改成所点击的三级分类
+			context.selected_category = payload
+		},
+		
+		// 点击筛选属性，将对应的筛选属性放到selected_attr_list对应的元素上
+		attr_clicked(context,payload){
+			context.selected_attr_list[payload.index] = payload.attr
 		}
 	},
 	actions: {
@@ -21,6 +36,29 @@ export default {
 			// 获取到所有的分类信息赋值给当前仓库中的cate_list
 			getCategoryList({pid : ""}).then(response => {
 				context.state.cate_list = response.data.data
+			})
+		},
+		
+		// 获取到当前分类所对应的筛选属性
+		get_attr_list(context){
+			
+			// 调用异步方法获取到筛选属性
+			getAttrList({
+				'cate_id' : context.state.selected_category.cate_id,
+				'key_issku' : 0,
+				'key_ishigh' : 0
+			}).then(response =>{
+				// 将获取到的对应分类的筛选属性赋值给当前仓库中的attr_list
+				context.state.attr_list = response.data.data
+				// console.log(context.state.attr_list)
+				// 给选中的筛选数组复制，默认（页面刚刚加载完毕的时候全部是undefined）
+				
+				// 先将原来的筛选属性清空
+				context.state.selected_attr_list = []
+				for(let i = 0; i <= context.state.attr_list.length - 1; i++){
+					context.state.selected_attr_list.push(undefined)
+				}
+				console.log(context.state.selected_attr_list)
 			})
 		}
 	},
