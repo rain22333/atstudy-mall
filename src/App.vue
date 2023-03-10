@@ -183,12 +183,16 @@ body{ margin: 0rem; }
 .rounded-left-lg{ border-radius: 0.5rem 0rem 0rem 0.5rem; }
 .rounded-right{ border-radius: 0rem 0.25rem 0.25rem 0rem; }
 .rounded-right-lg{ border-radius: 0rem 0.5rem 0.5rem 0rem; }
+.rounded-right-xl{ border-radius: 0rem 1rem 1rem 0rem; }
 .circle{ border-radius: 50%; }
+
+
 
 .w-0{ width: 0%; }
 .w-3{ width: 3%; }
 .w-5{ width: 5%; }
 .w-6{ width: 6%; }
+.w-7{ width: 7%; }
 .w-10{ width: 10%; }
 .w-13{ width: 13%;}
 .w-15{ width: 15%; }

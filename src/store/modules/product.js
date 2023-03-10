@@ -8,18 +8,32 @@ import {
 export default {
 	namespaced: true,
 	state: {
-		cate_list: [],
-		selected_big_category: undefined, // 当前选中的一级分类
-		selected_category: undefined, // 当前选中的三级分类
-		attr_list: [], // 筛选属性
-		selected_attr_list: [], // 选择的筛选属性，数量和筛选属性是一致的
-		selected_attr_str_list: '', // 选择的商品筛选属性值列表
-		spu_list: [], //符合筛选条件的商品列表
-		start: 0,
-		length: 10,
-		keyWord : ''
+		cate_list: [],									// 用于主页存放所有分类的数组			
+		selected_big_category: undefined, 				// 当前选中的一级分类
+		selected_category: undefined,					 // 当前选中的三级分类
+		attr_list: [], 									// 筛选属性
+		selected_attr_list: [], 						// 选择的筛选属性，数量和筛选属性是一致的
+		selected_attr_str_list: '', 					// 选择的商品筛选属性值列表
+		spu_list: [], 									//符合筛选条件的商品列表
+		start: 0,										// 起始索引
+		length: 10,										// 查询的记录数
+		keyWord : '',
+		category_list : [],				// 用于商品详情页面存放对应品牌的分类用的数组
+		cate_id_list : [130,30,19,219]					,// 商品专场的id
+		special_spu_list : []
 	},
 	mutations: {
+		
+		// 商品详情页面的点击事件
+		spu_category_clicked(context,payload){
+			// 将当前选中的三级分类改变
+			context.selected_category = payload
+			// 需要再次发送ajax请求获取到满足条件的数据
+			this.dispatch('product/get_spu_list')
+			// 获取到该分类的筛选列表
+			this.dispatch('product/get_attr_list')
+		},
+		
 		// 鼠标掠过改变当前选中的一级分类
 		big_cate_hover(context, payload) {
 			context.selected_big_category = payload
@@ -55,6 +69,11 @@ export default {
 
 	},
 	actions: {
+		
+		
+
+		
+		
 		// 异步方法在这里定义
 		get_category_list(context, payload) { // context当前仓库的上下文对象 payload 传入进来的参数
 			console.log(context)
@@ -103,9 +122,31 @@ export default {
 				start: context.state.start, //	起始索引
 				length: context.state.length //	查询的记录数
 			}).then(response => {
-				context.state.spu_list = response.data.data
-				console.log(context.state.spu_list)
+				// 查询到了符合条件的商品信息
+				context.state.spu_list = response.data.data				//将商品列表存放到了spu_list中
+				
+				if(context.state.category_list.length == 0 ){
+					context.state.category_list = response.data.categoryList		// 将商品的分类信息存放到了category_list
+				}
 			})
+		},
+		
+		// 获取到专场商品的数据
+		get_special_list(context){
+			for(let id of context.state.cate_id_list){
+				getSpuList({
+					spu_name: '', //	商品名称
+					spu_title: '', //	商品标题
+					spu_status: 1, //	商品状态：只查询上架状态的商品
+					cate_id: id, //	商品分类编号
+					valueList: '', //	商品筛选属性值列表
+					start: 0, //	起始索引
+					length: 5 //	查询的记录数
+				}).then(response =>{
+					console.log(response)
+				})
+			}
+
 		}
 
 	},

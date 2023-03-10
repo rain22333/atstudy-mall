@@ -58,9 +58,19 @@
 		</div>
 	</div>
 
+	<!-- 商品专场 -->
+	
+	<div class="container mt-5">
+		<div class="box-shadow text-lg text-bolder w-15 rounded-right-xl rounded-left-lg py-2 px-3 text-muted" >电视专场</div>
+		<Spu-list></Spu-list>
+	</div>
+	<!-- /商品专场 -->
+
 </template>
 
 <script>
+	
+	import Spu_list from '@/components/Spu_list.vue'
 	import {
 		mapState,
 		mapActions,
@@ -73,8 +83,10 @@
 			...mapState(['website', 'product'])
 		},
 		methods: {
+			
 			...mapActions({
-				'getCategoryList': 'product/get_category_list'
+				'getCategoryList': 'product/get_category_list',
+				'getList':'product/get_special_list'
 			}),
 			...mapMutations({
 				'big_hover': 'product/big_cate_hover',
@@ -89,6 +101,13 @@
 		},
 		mounted() {
 			this.getCategoryList()
+			// 首页挂载的时候需要发送请求获取到专场数据
+			this.getList()
+			
+			
+		},
+		components : {
+			'Spu-list' : Spu_list
 		}
 
 
