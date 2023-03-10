@@ -31,7 +31,11 @@ export default {
 		// 点击筛选属性，将对应的筛选属性放到selected_attr_list对应的元素上
 		attr_clicked(context, payload) {
 			context.selected_attr_list[payload.index] = payload.attr
-		}
+		},
+		
+		
+		
+		
 	},
 	actions: {
 		// 异步方法在这里定义
