@@ -17,7 +17,9 @@
 					
 					@click="attr_clicked({'index' : index,'attr' : key_value})"
 					
-					:class="{'text-red' : product.selected_attr_list[index] == key_value}">{{key_value.value_name}}</div>
+					:class="{'text-red' : product.selected_attr_list[index] == key_value}"
+					
+					>{{key_value.value_name}}</div>
 			</div>
 		</div>
 	</div>
@@ -49,7 +51,7 @@
 		},
 		methods: {
 			...mapMutations({
-				'attr_clicked': 'product/attr_clicked'
+				'attr_clicked': 'product/attr_clicked',
 			}),
 			...mapActions({
 				'getAttrList': 'product/get_attr_list',
