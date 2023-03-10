@@ -5,8 +5,12 @@
 		</div>
 		<div class="w-72  d-flex flex-column align-items-center" style="margin-left: -20px;">
 			<div class="d-flex" style="min-width: 72%;">
-				<input type="text" class="w-50  border-right-none rounded-left outline-none border-red px-3 py-2"  placeholder="商品名称/品牌/分类/规格属性">
-				<button class="px-3 py-2 bg-red text-white border-0 rounded-right mr-3 hand">搜索</button>
+				<input type="text" 
+					class="w-50  border-right-none rounded-left outline-none border-red px-3 py-2"  
+					placeholder="商品名称/品牌/分类/规格属性"
+					v-model='product.keyWord'>
+				<router-link to="/spuList" class="px-3 py-2 bg-red text-decoration-none text-white border-0 rounded-right mr-3 hand"
+					@click="getSpuList()">搜索</router-link >
 				<router-link to="/cart" class="text-decoration-none border-gray px-5 rounded py-1 text-red">我的购物车</router-link>
 			</div>
 			<div class="mt-2 d-flex text-xs text-secondary">
@@ -39,6 +43,20 @@
 </template>
 
 <script>
+	
+	import {mapState,mapActions} from 'vuex'
+	export default {
+		
+		computed :{
+			...mapState(['product'])
+		},
+		
+		methods:{
+			...mapActions({
+				'getSpuList' : 'product/get_spu_list'
+			})
+		}
+	}
 </script>
 
 <style>

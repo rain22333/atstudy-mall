@@ -16,7 +16,8 @@ export default {
 		selected_attr_str_list: '', // 选择的商品筛选属性值列表
 		spu_list: [], //符合筛选条件的商品列表
 		start: 0,
-		length: 10
+		length: 10,
+		keyWord : ''
 	},
 	mutations: {
 		// 鼠标掠过改变当前选中的一级分类
@@ -72,7 +73,7 @@ export default {
 
 			// 调用异步方法获取到筛选属性
 			getAttrList({
-				'cate_id': context.state.selected_category.cate_id,
+				'cate_id': context.state.selected_category == undefined ?  null : context.state.selected_category.cate_id,
 				'key_issku': 0,
 				'key_ishigh': 0
 			}).then(response => {
@@ -92,11 +93,12 @@ export default {
 
 		// 获取到符合筛选属性列表的商品列表
 		get_spu_list(context) {
+			
 			getSpuList({
-				spu_name: '', //	商品名称
+				spu_name: context.state.keyWord == '' ? '' : context.state.keyWord, //	商品名称
 				spu_title: '', //	商品标题
 				spu_status: 1, //	商品状态：只查询上架状态的商品
-				cate_id: context.state.selected_category.cate_id, //	商品分类编号
+				cate_id: context.state.selected_category == undefined ?  null : context.state.selected_category.cate_id, //	商品分类编号
 				valueList: context.state.selected_attr_str_list, //	商品筛选属性值列表
 				start: context.state.start, //	起始索引
 				length: context.state.length //	查询的记录数
