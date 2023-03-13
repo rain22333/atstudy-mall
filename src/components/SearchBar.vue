@@ -10,7 +10,7 @@
 					placeholder="商品名称/品牌/分类/规格属性"
 					v-model='product.keyWord'>
 				<router-link to="/spuList" class="px-3 py-2 bg-red text-decoration-none text-white border-0 rounded-right mr-3 hand"
-					@click="getSpuList()">搜索</router-link >
+					@click="searchClicked()">搜索</router-link >
 				<router-link to="/cart" class="text-decoration-none border-gray px-5 rounded py-1 text-red">我的购物车</router-link>
 			</div>
 			<div class="mt-2 d-flex text-xs text-secondary">
@@ -44,7 +44,7 @@
 
 <script>
 	
-	import {mapState,mapActions} from 'vuex'
+	import {mapState,mapMutations} from 'vuex'
 	export default {
 		
 		computed :{
@@ -52,8 +52,8 @@
 		},
 		
 		methods:{
-			...mapActions({
-				'getSpuList' : 'product/get_spu_list'
+			...mapMutations({
+				'searchClicked' : 'product/search_clicked'
 			})
 		}
 	}

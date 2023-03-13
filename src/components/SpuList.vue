@@ -2,7 +2,7 @@
 	<div class="container box-shadow rounded py-2 px-4 border-box">
 
 		<!-- 分类信息 -->
-		<div class="d-flex mx-2 text-muted te-xs" v-if="product.selected_category == undefined">
+		<div class="d-flex mx-2 text-muted te-xs" v-if="product.keyWord != ''">
 			<div class="w-15 text-right mr-2">分类：</div>
 			<div class="w-7 ml-1 hand" :class="{'text-red' : product.selected_category == undefined}"
 				@click="cateClicked(undefined)">全部分类</div>
@@ -60,7 +60,8 @@
 
 			...mapMutations({
 				'attr_clicked': 'product/attr_clicked',
-				'cateClicked': 'product/spu_category_clicked'
+				'cateClicked': 'product/spu_category_clicked',
+				'getMore':'product/next_page'
 			}),
 			...mapActions({
 				'getAttrList': 'product/get_attr_list',
@@ -73,6 +74,30 @@
 			if (this.product.selected_category != undefined) {
 				this.getSpuList()
 			}
+			
+			
+			window.onscroll = () =>{
+				// 判断屏幕是否滚动到了底部
+				if(window.innerHeight + document.documentElement.scrollTop >= document.documentElement.scrollHeight){
+					console.log(`屏幕滚动到了底部`)
+					// 应该重新获取数据
+					if(this.product.has_more == true){
+						console.log(`重新获取数据`)
+						this.getMore()
+					}
+				}
+			}
+		},
+		unmounted() {
+			// 页面卸载得时候，将之前得商品清空，起始索引变为0，has_more标记变回true，之前选择得三级分类变回空
+			this.product.spu_list = []
+			this.product.start = 0
+			this.product.has_more = true
+			this.product.selected_category = undefined
+			this.product.category_list = []
+			this.product.keyWord = ''
+			this.product.selected_attr_str_list = ''
+			
 		},
 		components: {
 			'Spu-list': Spu_list

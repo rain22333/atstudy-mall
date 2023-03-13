@@ -60,7 +60,8 @@
 
 	<!-- 商品专场 -->
 	
-	<div class="container mt-5"
+	
+	<div class="container mt-5"  
 		v-for="spuList of product.special_spu_list"
 			:key="spuList.categoryList[0].cate_id">
 		<div class="box-shadow text-lg text-bolder w-15 rounded-right-xl rounded-left-lg py-2 px-3 text-muted" >{{spuList.categoryList[0].cate_name}}专场</div>

@@ -23,12 +23,51 @@ export default {
 		
 		
 		cate_id_list : [130,34,20,219]					,// 商品专场的id
-		special_spu_list : []							// 专场商品数据
+		special_spu_list : [],							// 专场商品数据
+		has_more : true									// 是否还有更多数据
 	},
 	mutations: {
 		
+		
+		// 搜索按钮点击事件
+		search_clicked(context){
+			
+			
+			// 点击搜索，将之前获取到的商品全部清空，筛选条件、has_more...全部变回原样
+			context.spu_list = []
+			context.selected_attr_str_list = ''
+			context.start = 0
+			context.has_more = true
+			
+			this.dispatch('product/get_spu_list')
+		},
+		
+		
+		// 获取下一页数据
+		next_page(context){
+			context.start = context.start + context.length
+			// 重新获取到数据
+			this.dispatch('product/get_spu_list')
+		},
+		
+		
 		// 商品详情页面的点击事件
 		spu_category_clicked(context,payload){
+			
+			// 判断传入进来得参数是不是undefined  
+			if(payload == undefined){
+				// 将之前获取到的分类列表清空
+				context.category_list = []
+			}
+			
+			// 将起始索引变为0，将之前得商品列表置空，将has_more标记变回true
+			context.spu_list = []
+			context.start = 0
+			context.has_more = true
+			
+			// 如果传入进来得是undefined，说明点击了全部分类，应该将之前选中得筛选条件 全部置空
+			context.selected_attr_str_list = ''
+			
 			// 将当前选中的三级分类改变
 			context.selected_category = payload
 			// 需要再次发送ajax请求获取到满足条件的数据
@@ -50,6 +89,16 @@ export default {
 
 		// 点击筛选属性，将对应的筛选属性放到selected_attr_list对应的元素上（重新生成筛选条件：商品筛选属性值列表）
 		attr_clicked(context, payload) {
+			
+			
+			
+			// 将之前获取到得商品数据置空
+			context.spu_list = []
+			// 将起始索引变回0
+			context.start = 0
+			// 将has_more标记变回true
+			context.has_more = true
+			
 			// 每次点击先将之前得筛选属性值得字符串 置空
 			context.selected_attr_str_list = ''
 			
@@ -126,7 +175,15 @@ export default {
 				length: context.state.length //	查询的记录数
 			}).then(response => {
 				// 查询到了符合条件的商品信息
-				context.state.spu_list = response.data.data				//将商品列表存放到了spu_list中
+				// context.state.spu_list = response.data.data				//将商品列表存放到了spu_list中
+				
+				// 将获取到得商品数据拼接到原来得商品列表中
+				context.state.spu_list  = context.state.spu_list.concat(response.data.data)
+				
+				// 判断获取到的数据得数组长度是否小于length
+				if(response.data.data.length < context.state.length){
+					context.state.has_more = false
+				}
 				
 				if(context.state.category_list.length == 0 ){
 					context.state.category_list = response.data.categoryList		// 将商品的分类信息存放到了category_list

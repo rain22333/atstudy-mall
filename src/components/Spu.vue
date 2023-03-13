@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="box-shadow-hover-red border-box mx-1 my-2">
 		<img :src="'http://localhost:8001/img/'+ selected_img" 
 			style="width: 200px;">
 		<div class="mt-2">
