@@ -19,8 +19,11 @@ export default {
 		length: 10,										// 查询的记录数
 		keyWord : '',
 		category_list : [],				// 用于商品详情页面存放对应品牌的分类用的数组
-		cate_id_list : [130,30,19,219]					,// 商品专场的id
-		special_spu_list : []
+		
+		
+		
+		cate_id_list : [130,34,20,219]					,// 商品专场的id
+		special_spu_list : []							// 专场商品数据
 	},
 	mutations: {
 		
@@ -133,20 +136,20 @@ export default {
 		
 		// 获取到专场商品的数据
 		get_special_list(context){
-			for(let id of context.state.cate_id_list){
+			for(let i = 0; i <= context.state.cate_id_list.length - 1; i++){
 				getSpuList({
 					spu_name: '', //	商品名称
 					spu_title: '', //	商品标题
 					spu_status: 1, //	商品状态：只查询上架状态的商品
-					cate_id: id, //	商品分类编号
+					cate_id: context.state.cate_id_list[i], //	商品分类编号
 					valueList: '', //	商品筛选属性值列表
 					start: 0, //	起始索引
 					length: 5 //	查询的记录数
 				}).then(response =>{
-					console.log(response)
+					context.state.special_spu_list[i] = response.data
 				})
 			}
-
+			console.log(context.state.special_spu_list)
 		}
 
 	},
