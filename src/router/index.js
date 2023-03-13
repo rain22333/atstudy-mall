@@ -4,6 +4,7 @@ import {
 } from 'vue-router'
 import Index from '@/components/Index.vue'
 import SpuList from '@/components/SpuList.vue'
+import SpuInfo from '@/components/SpuInfo.vue'
 
 const routes = [{
 		path: '/',
@@ -14,6 +15,11 @@ const routes = [{
 		path: '/spuList',
 		name: 'SpuList',
 		component: SpuList
+	},
+	{
+		path: '/spuInfo',
+		name: 'SpuInfo',
+		component: SpuInfo
 	},
 
 ]

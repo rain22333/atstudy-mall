@@ -24,9 +24,33 @@ export default {
 		
 		cate_id_list : [130,34,20,219]					,// 商品专场的id
 		special_spu_list : [],							// 专场商品数据
-		has_more : true									// 是否还有更多数据
+		has_more : true									,// 是否还有更多数据
+		
+		selected_spu : undefined,					// 被选中得商品
+		img_list_index : 0,							// 商品默认选中的颜色索引
+		sku_index : 0	,							// 当前商品的sku组合的索引		
+		selected_img : undefined
 	},
 	mutations: {
+		
+		// 商品的某个图片被点击了
+		img_click(context,payload){
+			context.selected_img = payload
+		},
+		
+		// 某个商品被点击了
+		spu_clicked(context,payload){
+			context.selected_spu = payload
+			console.log(`这是被选中得商品`)
+			console.log(context.selected_spu)
+			
+			// 遍历当前商品的所有的颜色，确定哪个颜色是默认选中的
+			for(let i = 0 ; i <= context.selected_spu.attrKeyList[0].attrValueList; i++){
+				if(context.selected_spu.attrKeyList[0].attrValueList[i].value_id == JSON.parse(this.product.selected_spu.skuList[context.sku_index].sku_spuattr)[0].value_id){
+					context.img_list_index = i
+				}
+			}
+		},
 		
 		
 		// 搜索按钮点击事件

@@ -202,9 +202,13 @@ body{ margin: 0rem; }
 .w-25{ width: 25%; }
 .w-26{ width: 26%; }
 .w-33{ width: 33%; }
+.w-37{ width: 37%; }
 .w-40{ width: 40%; }
+.w-47{ width: 47%; }
 .w-50{ width: 50%; }
+.w-53{ width: 53%; }
 .w-60{ width: 60%; }
+.w-63{ width: 63%; }
 .w-66{ width: 66%; }
 .w-72{ width: 72%; }
 .w-75{ width: 75%; }
@@ -276,6 +280,9 @@ body{ margin: 0rem; }
 /*  字体线型  */
 .text-decoration-none{
     text-decoration: none;
+}
+.text-decoration-line-through{
+    text-decoration: line-through;
 }
 
 /*  内容溢出  */

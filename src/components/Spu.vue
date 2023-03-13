@@ -1,5 +1,7 @@
 <template>
-	<div class="box-shadow-hover-red border-box mx-1 my-2">
+	<router-link to="/spuInfo" 
+		class="box-shadow-hover-red rounded text-decoration-none border-box py-2 px-3 mx-1 my-2"
+		@click="spuClicked(data)">
 		<img :src="'http://localhost:8001/img/'+ selected_img" 
 			style="width: 200px;">
 		<div class="mt-2">
@@ -13,10 +15,13 @@
 		</div>
 		<div class="text-bolder text-lg  text-red mt-2">￥{{spuPrice}}</div>
 		<div class="text-sm text-secondary mt-2">{{data.spu_name}}</div>		
-	</div>
+	</router-link>
 </template>
 
 <script>
+	
+	import {mapMutations} from 'vuex'
+	
 	export default{
 		props : ['data'],
 		data(){
@@ -28,7 +33,10 @@
 		methods : {
 			img_clicked(x){
 				this.selected_img = x
-			}
+			},
+			...mapMutations({
+				'spuClicked':'product/spu_clicked'
+			})
 		},
 		mounted() {
 			// 遍历当前Spu得所有sku组合，找到最低价
