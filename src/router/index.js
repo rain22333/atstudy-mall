@@ -6,6 +6,7 @@ import Index from '@/components/Index.vue'
 import SpuList from '@/components/SpuList.vue'
 import SpuInfo from '@/components/SpuInfo.vue'
 import Regist from '@/components/Regist.vue'
+import Login from '@/components/Login.vue'
 
 const routes = [{
 		path: '/',
@@ -26,6 +27,11 @@ const routes = [{
 		path: '/regist',
 		name: 'Regist',
 		component: Regist
+	},
+	{
+		path: '/login',
+		name: 'Login',
+		component: Login
 	},
 ]
 
