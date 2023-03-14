@@ -9,7 +9,7 @@
 					<div class="d-flex" :style="{ marginLeft : -100 * index +'px' }">
 						<img v-for="(img,imgIndex) of product.selected_spu.attrKeyList[0].attrValueList[product.img_list_index].value_images"
 							:key="'img' + imgIndex"
-							:src="'http://localhost:8001/img/' + img"  style="width: 93px;"
+							:src="'http://localhost:8001/img/' + img"  style="width: 92px;"
 							:class="{'border-red' : img == product.selected_img}"
 							class="mx-1"
 							@click="imgClick(img)">
@@ -30,16 +30,18 @@
 			<div class="text-muted text-bold mt-3">库存： {{product.selected_spu.skuList[product.sku_index].sku_quantity}}</div>
 			
 			<div  
-				v-for="attr of product.selected_spu.attrKeyList"
+				v-for="(attr,index) of product.selected_spu.attrKeyList"
 				:key="'attr' + attr.key_id">
 				<template v-if="attr.attrValueList[0].value_images.length != 0">
 					<!-- 这里是有图片的规格属性 -->
 					<div class="d-flex mt-3 ">
 						<div class="text-muted text-bolder mt-2 w-15">{{attr.key_name}}</div>
-						<div class="w-85 d-flex flex-wrap ">
-							<div class="text-muted text-bolder rounded-lg mx-2 mt-2 d-flex align-items-center p-1 border-gray"
-								v-for="key of attr.attrValueList"
-								:key="'key' + key.value_id">
+						<div class="w-85 d-flex flex-wrap bor">
+							<div class="text-muted text-bolder hand rounded-lg mx-2 mt-2 d-flex align-items-center p-1 border-gray"
+								v-for="(key,img_index) of attr.attrValueList"
+								:key="'key' + key.value_id"
+								:class="{'border-red' : img_index == product.img_list_index}"
+								@click="imgListClicked(img_index,index,key.value_id)">
 									<img :src="'http://127.0.0.1:8001/img/' + key.value_images[0]" style="height: 50px;">
 									<span class="text-center">{{key.value_name}}</span>
 								</div>
@@ -52,10 +54,11 @@
 					<div class="d-flex mt-3 ">
 						<!-- 说明这个规格属性是没有图片的 -->
 						<div class="text-muted text-bolder mt-2 w-15">{{attr.key_name}}</div>
-						<div class="w-85 d-flex flex-wrap ">
+						<div class="w-85 hand d-flex flex-wrap ">
 							<div class="text-muted text-bolder rounded-lg mx-2 mt-2 p-2 border-gray"
 								v-for="key of attr.attrValueList"
-								:key="'key' + key.value_id">{{key.value_name}}</div>
+								:key="'key' + key.value_id"
+								:class="{'border-red' : key.value_id == this.product.selected_sku[index].value_id }">{{key.value_name}}</div>
 						</div>
 					</div>
 
@@ -91,8 +94,27 @@ export default{
 		this.product.selected_img = this.product.selected_spu.attrKeyList[0].attrValueList[this.product.img_list_index].value_images[0]
 	},
 	methods:{
+		/**
+		 * @param {Object} x			是当前点击的图片的数组的索引
+		 * @param {Object} index		是当前点击的规格属性的索引(颜色)
+		 * @param {Object} value_id		是当前点击的规格属性的value_id  (皓月白对应的value_id)
+		 */
+		imgListClicked(x,index,value_id){
+			this.product.img_list_index = x
+			// 切换了图片数组之后，需要将左边上面得大图片换成当前图片数组得第一张图片
+			this.product.selected_img = this.product.selected_spu.attrKeyList[0].attrValueList[this.product.img_list_index].value_images[0]
+			
+			// 定义一个json对象
+			let json = {}
+			json.index = index
+			json.value_id = value_id
+			
+			this.skuClicked(json)
+			
+		},
 		...mapMutations({
-			'imgClick':'product/img_click'
+			'imgClick':'product/img_click',
+			'skuClicked':'product/sku_attr_clicked'
 		}),
 		leftClicked(){
 			if(this.index > 0){

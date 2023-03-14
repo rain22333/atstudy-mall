@@ -29,11 +29,59 @@ export default {
 		selected_spu : undefined,					// 被选中得商品
 		img_list_index : 0,							// 商品默认选中的颜色索引
 		sku_index : 0	,							// 当前商品的sku组合的索引		
-		selected_img : undefined
+		selected_img : undefined,					// 商品详情页面左边选中得图片
+		selected_sku : undefined					,// 商品默认选中得sku得组合
+		
+		
 	},
 	mutations: {
 		
-		// 商品的某个图片被点击了
+		// 商品详情页面的某个规格属性被点击了
+		/**
+		 * @param {Object} context
+		 * @param {Object} payload   json对象，需要两个参数，应该是被点击的规格的value_id,另一个是被点击的规格属性的索引
+		 */
+		sku_attr_clicked(context,payload){
+			
+			let idList = []			// 定义一个空的数组，用于存放新的规格属性的组合的id
+			// 遍历当前选中的sku组合的这个数组
+			for(let i= 0; i <= context.selected_sku.length - 1; i++){
+				// 如果遍历到的规格属性的索引和我们传过来的规格属性的索引不相等，说明不是我们点击的规格属性
+				if(i != payload.index){
+					// 直接将之前的value_id传过去
+					idList.push(context.selected_sku[i].value_id)
+				}else{					// 这里说明是我们点击的规格属性
+					idList.push(payload.value_id)			// 将我们传过来的value_id放到idList中
+				}
+			}
+			console.log(idList)	
+			// 获取到新的id组合之后，需要遍历索引的该商品的sku组合，找到一样的，改变仓库中的sku_index
+			let flag = true			
+			for(let i = 0; i <= context.selected_spu.skuList.length - 1; i++ ){
+				// 每次判断新的组合之前都将标记重置为true
+				flag = true
+				// 将这个组合中的字符串转成json对象
+				let attrList = JSON.parse(context.selected_spu.skuList[i].sku_spuattr)
+				// 一一判断，这个组合是不是我们要找的新的组合
+				for(let i = 0; i <= attrList.length - 1; i++){
+					console.log(``)
+					// 有一个规格属性的value_Id对应不上，就说明不是我们要找的组合
+					if(attrList[i].value_id != idList[i]){
+						flag = false
+						break
+					}
+				}
+				// 如果上面没有将标记变量改为false，说明所有的value_id都对上了，这就是我们要找的组合
+				if(flag){
+					context.sku_index = i
+				}
+			}
+			console.log(context.sku_index)
+
+		},
+		
+		
+		// 商品详情左边的某个图片被点击了
 		img_click(context,payload){
 			context.selected_img = payload
 		},
@@ -50,6 +98,9 @@ export default {
 					context.img_list_index = i
 				}
 			}
+			// 将被点击得商品得默认选中得sku组合得字符串转成json对象复制到仓库中得selected_sku
+			context.selected_sku = JSON.parse(context.selected_spu.skuList[context.sku_index].sku_spuattr)
+			console.log(context.selected_sku)
 		},
 		
 		
