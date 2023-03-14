@@ -75,6 +75,11 @@
 
 		</div>
 	</div>
+	
+	
+	<div class="container mt-5">
+		<img :src="require('@/assets/' + 'spu_introduce_01.jpg' )" class="w-100">
+	</div>
 </template>
 
 <script>
@@ -93,7 +98,18 @@ export default{
 	mounted() {
 		// 将仓库中默认选中的图片换成选中的第一张图片
 		this.product.selected_img = this.product.selected_spu.attrKeyList[0].attrValueList[this.product.img_list_index].value_images[0]
+		
 	},
+	beforeMount() {
+		// 在商品详情页面挂载之前从缓存中获取数据放到仓库中
+		this.product.selected_spu = JSON.parse(sessionStorage.getItem('spu'))
+		this.product.selected_sku = JSON.parse(sessionStorage.getItem('sku'))	
+		
+	},
+	beforeUnmount(){
+		
+	}
+	,
 	methods:{
 		/**
 		 * @param {Object} x			是当前点击的图片的数组的索引

@@ -92,6 +92,9 @@ export default {
 		
 		// 某个商品被点击了
 		spu_clicked(context,payload){
+			
+			// 商品被点击的时候将商品数据放到缓存中
+			
 			context.selected_spu = payload
 			console.log(`这是被选中得商品`)
 			console.log(context.selected_spu)
@@ -105,6 +108,11 @@ export default {
 			// 将被点击得商品得默认选中得sku组合得字符串转成json对象复制到仓库中得selected_sku
 			context.selected_sku = JSON.parse(context.selected_spu.skuList[context.sku_index].sku_spuattr)
 			console.log(context.selected_sku)
+			
+			
+			// 将当前商品的数据和默认选中的sku的组合的json对象放到缓存中
+			sessionStorage.setItem('spu',JSON.stringify(context.selected_spu))
+			sessionStorage.setItem('sku',JSON.stringify(context.selected_sku))
 		},
 		
 		
