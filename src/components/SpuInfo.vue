@@ -102,8 +102,8 @@ export default{
 	},
 	beforeMount() {
 		// 在商品详情页面挂载之前从缓存中获取数据放到仓库中
-		this.product.selected_spu = JSON.parse(sessionStorage.getItem('spu'))
-		this.product.selected_sku = JSON.parse(sessionStorage.getItem('sku'))	
+		this.product.selected_spu = JSON.parse(localStorage.getItem('spu'))
+		this.product.selected_sku = JSON.parse(localStorage.getItem('sku'))	
 		
 	},
 	beforeUnmount(){

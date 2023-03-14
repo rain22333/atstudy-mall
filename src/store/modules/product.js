@@ -111,8 +111,10 @@ export default {
 			
 			
 			// 将当前商品的数据和默认选中的sku的组合的json对象放到缓存中
-			sessionStorage.setItem('spu',JSON.stringify(context.selected_spu))
-			sessionStorage.setItem('sku',JSON.stringify(context.selected_sku))
+			localStorage.setItem('spu',JSON.stringify(context.selected_spu))
+			localStorage.setItem('sku',JSON.stringify(context.selected_sku))
+			
+			
 		},
 		
 		

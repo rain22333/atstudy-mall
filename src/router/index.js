@@ -5,6 +5,7 @@ import {
 import Index from '@/components/Index.vue'
 import SpuList from '@/components/SpuList.vue'
 import SpuInfo from '@/components/SpuInfo.vue'
+import Regist from '@/components/Regist.vue'
 
 const routes = [{
 		path: '/',
@@ -21,7 +22,11 @@ const routes = [{
 		name: 'SpuInfo',
 		component: SpuInfo
 	},
-
+	{
+		path: '/regist',
+		name: 'Regist',
+		component: Regist
+	},
 ]
 
 const router = createRouter({
