@@ -43,6 +43,8 @@ export default {
 		 */
 		sku_attr_clicked(context,payload){
 			
+			console.log(payload)
+			
 			let idList = []			// 定义一个空的数组，用于存放新的规格属性的组合的id
 			// 遍历当前选中的sku组合的这个数组
 			for(let i= 0; i <= context.selected_sku.length - 1; i++){
@@ -74,9 +76,11 @@ export default {
 				// 如果上面没有将标记变量改为false，说明所有的value_id都对上了，这就是我们要找的组合
 				if(flag){
 					context.sku_index = i
+					// 将当前商品的规格属性的组合的json对象也换掉
+					context.selected_sku = JSON.parse(context.selected_spu.skuList[context.sku_index].sku_spuattr)
 				}
 			}
-			console.log(context.sku_index)
+			
 
 		},
 		
