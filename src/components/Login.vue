@@ -7,9 +7,9 @@
 			<div class="text-center text-xl text-bolder text-muted my-3">客户登录</div>
 			<input type="text" class="outline-none border-gray rounded my-3 py-2 px-4" placeholder="请输入手机号码"
 				v-model="customer.username">
-			<input type="text" class="outline-none border-gray rounded my-3 py-2 px-4" placeholder="请输入账户密码"
+			<input type="password" class="outline-none border-gray rounded my-3 py-2 px-4" placeholder="请输入账户密码"
 				v-model="customer.password">
-			<button class="border-0 bg-red text-white py-2 rounded"
+			<button class="border-0 bg-red text-white hand py-2 rounded"
 				@click="login()">登录</button>
 		</div>
 	</div>
