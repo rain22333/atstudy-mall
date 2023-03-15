@@ -201,9 +201,11 @@ body{ margin: 0rem; }
 .w-23{ width: 23%; }
 .w-25{ width: 25%; }
 .w-26{ width: 26%; }
+.w-30{ width: 30%; }
 .w-33{ width: 33%; }
 .w-37{ width: 37%; }
 .w-40{ width: 40%; }
+.w-45{ width: 45%; }
 .w-47{ width: 47%; }
 .w-50{ width: 50%; }
 .w-53{ width: 53%; }
@@ -249,6 +251,7 @@ body{ margin: 0rem; }
 .bg-red-opacity{ background-color: rgba(225,51,51,0.4); }
 .bg-gray{background-color: #ddd;}
 .bg-dark{background-color: #444;}
+.bg-green{background-color: #67C23A;}
 
 /*  字体颜色  */
 .text-dark{ color: #333; }
@@ -256,7 +259,7 @@ body{ margin: 0rem; }
 .text-muted{ color: #999; }
 .text-light{ color: #ccc; }
 .text-white{ color: #fff; }
-.text-red{ color: #e33; }
+.text-red{ color: #F56C6C; }
 .text-blue{ color: #99c; }
 
 .text-hover-red:hover{color: #e33;}
@@ -267,6 +270,7 @@ body{ margin: 0rem; }
 .text-lg{ font-size: 1.125rem; }
 .text-xl{ font-size: 1.25rem; }
 .text-xxl{ font-size: 1.75rem; }
+.text-max{ font-size: 3rem; }
 
 /*  字体水平对齐方式  */
 .text-center{text-align: center;}

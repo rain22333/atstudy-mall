@@ -7,6 +7,7 @@ import SpuList from '@/components/SpuList.vue'
 import SpuInfo from '@/components/SpuInfo.vue'
 import Regist from '@/components/Regist.vue'
 import Login from '@/components/Login.vue'
+import AddressList from '@/components/AddressList.vue'
 
 const routes = [{
 		path: '/',
@@ -32,6 +33,11 @@ const routes = [{
 		path: '/login',
 		name: 'Login',
 		component: Login
+	},
+	{
+		path: '/address',
+		name: 'AddressList',
+		component: AddressList
 	},
 ]
 
